@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git commands frequently asked questions and responses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .faq-item {
+            background: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .question {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question:hover {
+            background: #f0f0f0;
+        }
+        .answer {
+            display: none;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .answer.active {
+            display: block;
+        }
+        .toggle-icon::after {
+            content: '+';
+            font-size: 1.2em;
+        }
+        .toggle-icon.active::after {
+            content: '−';
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Apache Kafka Quickstart</h1>
+        <div class="faq-item">
+            <div class="question">
+                <span><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/4.0.0/kafka_2.13-4.0.0.tgz" target="_blank">Download</a> the latest Kafka release and extract it: </span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>tar -xzf kafka_2.13-4.0.0.tgz</li>
+                        <li>cd kafka_2.13-4.0.0</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Kafka can be run using local scripts and downloaded files or the docker image. In this case using downloaded files, generate a Cluster UUID</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Format Log Directories, Start the Kafka Server</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties</li>
+                        <li>bin/kafka-server-start.sh config/server.properties</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Using JVM Based Apache Kafka Docker Image</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>docker pull apache/kafka:4.0.0</li>
+                        <li>docker run -p 9092:9092 apache/kafka:4.0.0</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Using GraalVM Based Native Apache Kafka Docker Image</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>docker pull apache/kafka-native:4.0.0
+                        </li>docker run -p 9092:9092 apache/kafka-native:4.0.0</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Create a topic to store your events</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092</li>
+                        <li>bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Write some events into the topic</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Read the events</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Import/export your data as streams of events with Kafka Connect</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>echo "plugin.path=libs/connect-file-4.0.0.jar" >> config/connect-standalone.properties</li>
+                        <li>echo -e "foo\nbar" > test.txt</li>
+                        <li>bin/connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Process your events with Kafka Streams</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>Once your data is stored in Kafka as events, you can process the data with the Kafka Streams client library for Java/Scala. It allows you to implement mission-critical real-time applications and microservices, where the input and/or output data is stored in Kafka topics.</li>
+                        <li>Below is example of implementing the popular WordCount algorithm:</li>
+                        <pre>
+                            KStream<String, String> textLines = builder.stream("quickstart-events");
+                            KTable<String, Long> wordCounts = textLines
+                                        .flatMapValues(line -> Arrays.asList(line.toLowerCase().split(" ")))
+                                        .groupBy((keyIgnored, word) -> word)
+                                        .count();
+                            wordCounts.toStream().to("output-topic", Produced.with(Serdes.String(), Serdes.Long()));
+                        </pre>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="question">
+                <span>Terminate the Kafka environment</span><span class="toggle-icon"></span>
+            </div>
+            <div class="answer">
+                <span>
+                    <ul>
+                        <li>Stop the producer and consumer clients with Ctrl-C, if you haven't done so already.</li>
+                        <li>Stop the Kafka broker with Ctrl-C. </li>
+                        <li>rm -rf /tmp/kafka-logs /tmp/kraft-combined-logs</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelectorAll('.question').forEach(item => {
+        item.addEventListener('click', () => {
+            const answer = item.nextElementSibling;
+            const icon = item.querySelector('.toggle-icon');
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        });
+    });
+</script>
+</html>
