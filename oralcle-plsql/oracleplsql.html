@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Oracle PL/SQL FAQ</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a3c58;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .qa-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 5px solid #0288d1;
+            background: #fafafa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .qa-section:hover {
+            background: #f0f8ff;
+        }
+
+        .question {
+            font-weight: 600;
+            color: #1a3c58;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question::after {
+            content: '▼';
+            font-size: 0.8em;
+            color: rotate(0deg);
+        }
+
+        .qa-section.active .question::after {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            display: none;
+            margin-top: 12px;
+            color: #444;
+            padding-left: 10px;
+        }
+
+        .qa-section.active .answer {
+            display: block;
+        }
+
+        .answer p {
+            margin-bottom: 10px;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .answer pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .answer code {
+            font-family: 'Consolas', monospace;
+            background: #e0e7ff;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .qa-section {
+                padding: 10px;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .answer pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Oracle PL/SQL FAQ</h1>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Basic stored procedure syntax</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>
+                        <pre>
+                            Create or replace procedure hello 
+                            is 
+                            begin 
+                                dbms_output.put_line('Hello World!'); 
+                            END;
+                        </pre>
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Stored procedure with flow control</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>
+                        <pre>
+                            Create or replace procedure greeting 
+                            is 
+                                h number;
+                                g char(20);
+                            begin 
+                                select extract(hour from current_timestamp) into h from dual;
+
+                                if h>= 20 or h less than = 5 then
+                                    g:='Goodnight!';
+                                elsif h>5 and h less than = 12 then 
+                                    g := 'Good morning!';
+                                elsif h> 12 and h less than = 17 then
+                                    g := 'Good afternoon';
+                                else
+                                    g := 'Good evening!';
+                                end if;
+                                dbms_output.put_line(g);
+                            END;
+
+                            execute greeting;
+                        </pre>
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Stored procedure with arguments and dml</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>
+                        <pre>
+                            Create or replace procedure customeradd(
+                                v_cust_name in customers.cust_name%TYPE, 
+                                v_cust_address in customers.cust_address%TYPE,
+                                v_cust_city in customers.cust_city%TYPE,
+                                v_cust_state IN customers.cust_state%TYPE,
+                                v_cust_zip IN customers.cust_zip%TYPE,
+                                v_cust_country IN customers.cust_country%TYPE,
+                                v_cust_contact IN customers.cust_contact%TYPE,
+                                v_cust_email IN customers.cust_email%TYPE) 
+                            is 
+                                v_cust_id number;
+                            begin 
+                                select max(cust_id) into v_cust_id from customers;
+
+                                v_cust_id := v_cust_id+1;
+
+                                insert into customers(cust_id, cust_name, cust_address, cust_city, 
+                                cust_state, cust_zip, cust_country, cust_contact, cust_email)
+
+                                values (v_cust_id, v_cust_name, v_cust_address, v_cust_city,
+                                        v_cust_state, v_cust_zip, v_cust_country, v_cust_contact, v_cust_email);
+                                commit;
+                            END;
+
+                            execute customeradd('Pep E. LaPew', '100 Main Street', 'Los Angeles', 'CA',
+                                                 '90046','USA',NULL, NULL);
+
+                            drop procedure greeting;
+                        </pre>
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Function and Procedure in Package </span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>
+                        <span>Syntax: <br/></span>
+                        <pre>
+                            CREATE [OR REPLACE] FUNCTION function_name
+                            [(parameter1 [IN | OUT | IN OUT] datatype, 
+                                parameter2 [IN | OUT | IN OUT] datatype, ...)]
+                                RETURN return_datatype
+                            IS
+                                -- Declaration section (variables, cursors, etc.)
+                            BEGIN
+                                -- Executable section (logic)
+                                RETURN return_value;
+                                EXCEPTION
+                                -- Exception handling (optional)
+                            END [function_name];
+                            /
+                        </pre>
+                        <pre>
+                            create or replace package Test_Package_Func_Proc 
+                            as 
+                                function  test_func  (in_val in number) return number; 
+                                procedure test_proc (in_val in number); 
+                            end;
+                            /
+
+                            create or replace package body Test_Package_Func_Proc 
+                                as 
+                                function test_func (in_val in number) return number  
+                                is 
+                                begin 
+                                return in_val; 
+                                exception 
+                                when others then 
+                                    RAISE; 
+                                end; 
+                                
+                                procedure test_proc  (in_val in number) 
+                                is 
+                                begin 
+                                dbms_output.put_line (in_val); 
+                                exception 
+                                when others then 
+                                    RAISE; 
+                                end; 
+                            end; 
+                            /
+
+                            execute test_package_func_proc.test_proc(2);
+
+                            drop package Test_Package_Func_Proc;
+
+                            select test_package_func_proc.test_func(1) from dual 
+                        </pre>
+
+                        <pre>
+                            CREATE OR REPLACE FUNCTION get_discount_percentage(
+                                order_amount IN NUMBER
+                            )
+                                RETURN NUMBER
+                            IS
+                                discount NUMBER;
+                            BEGIN
+                                IF order_amount < 0 THEN
+                                    RAISE_APPLICATION_ERROR(-20001, 'Order amount cannot be negative');
+                                END IF;
+                                
+                                IF order_amount > 1000 THEN
+                                    discount := 10;
+                                ELSIF order_amount > 500 THEN
+                                    discount := 5;
+                                ELSE
+                                    discount := 0;
+                                END IF;
+                                
+                                RETURN discount;
+                            EXCEPTION
+                                WHEN OTHERS THEN
+                                    RAISE_APPLICATION_ERROR(-20002, 'Error calculating discount: ' || SQLERRM);
+                            END;
+                            /
+
+                            SELECT get_discount_percentage(750) AS discount FROM dual; -- Returns 5
+                        </pre>
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Cursors</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>cursors are pointers to result sets of a query, <br/>allowing you to process each row returned by the query one at a time <br/>which are essential for handling multi-row query results in PL/SQL blocks</p>
+                    <p>Cursors can by Implicit, Explicit, or REF Cursor</p>
+                    <p><strong>Explicit Cursor: </strong>Defined and controlled by the developer for queries returning multiple rows. Must be explicitly declared, opened, fetched, and closed. Provides more control for row-by-row processing.</p>
+                    <pre>
+                        DECLARE
+                            -- Declare variables
+                            v_vend_id vendors.vend_id%TYPE;
+                            v_vend_name vendors.vend_name%TYPE;
+                            v_vend_address vendors.vend_address%TYPE;
+                            v_vend_city vendors.vend_city%TYPE;
+                            v_vend_state vendors.vend_state%TYPE;
+                            v_vend_zip vendors.vend_zip%TYPE;
+                            v_vend_country vendors.vend_country%TYPE;
+
+                            -- Declare cursor
+                            CURSOR c_vendors IS
+                            Select vend_id, vend_name, vend_address, vend_city, vend_state, vend_zip, vend_country from vendors;
+
+
+                            BEGIN
+
+                            -- open cursor
+                            OPEN c_vendors;
+
+                            -- Loop through cursor
+
+                            Loop
+
+                                --Get a row
+                                FETCH 
+                                    c_vendors into v_vend_id, v_vend_name, v_vend_address,
+                                    v_vend_city, v_vend_state, v_vend_zip, v_vend_country;
+
+                                    -- Is this address in USA?
+
+                                    IF Trim(v_vend_country) = 'USA' THEN
+                                        v_vend_state : Upper(v_vend_state);
+                                        update vendors set vend_state = v_vend_state where vend_id=v_vend_id;
+                                    END IF;
+                                EXIT when c_vendors%notfound;
+
+                            END LOOP;
+                            -- Close c_vendors;
+                            close c_vendors;
+                        ENd;
+                        /
+                    </pre>
+                    <p><strong>Steps to Use an Explicit Cursor:</strong> 
+                        Declare: Define the cursor with a query.<br/>
+                        Open: Execute the query and make the result set available.<br/>
+                        Fetch: Retrieve data from the cursor into variables.<br/>
+                        Close: Release the cursor and associated resources.<br/>
+                    </p>
+                    <p><strong>Cursor Attributes: </strong> 
+                        These are used to control and monitor cursor status:<br/>
+                        %ISOPEN: Returns TRUE if the cursor is open, else FALSE.<br/>
+                        %FOUND: Returns TRUE if the last fetch returned a row, else FALSE.<br/>
+                        %NOTFOUND: Returns TRUE if the last fetch did not return a row (opposite of %FOUND).<br/>
+                        %ROWCOUNT: Returns the number of rows fetched so far.
+                    </p>
+                    <p><strong>REF(Reference) Cursor: </strong>Defined and controlled by the developer for queries returning multiple rows. Must be explicitly declared, opened, fetched, and closed. Provides more control for row-by-row processing.</p>
+                    <pre>
+                        DECLARE
+                            TYPE t_ref_cursor IS REF CURSOR;
+                            v_cursor t_ref_cursor;
+                            v_employee_id employees.employee_id%TYPE;
+                            v_first_name employees.first_name%TYPE;
+                            v_query VARCHAR2(100);
+                        BEGIN
+                            v_query := 'SELECT employee_id, first_name FROM employees WHERE department_id = :1';
+                            OPEN v_cursor FOR v_query USING 40; -- Dynamic query with parameter
+                            LOOP
+                                FETCH v_cursor INTO v_employee_id, v_first_name;
+                                EXIT WHEN v_cursor%NOTFOUND;
+                                DBMS_OUTPUT.PUT_LINE('ID: ' || v_employee_id || ', Name: ' || v_first_name);
+                            END LOOP;
+                            CLOSE v_cursor;
+                        END;
+                        /
+
+                    </pre>
+                    <p><strong>Implicit Cursor: </strong> Implicit cursors are automatically created by Oracle when a SELECT, INSERT, UPDATE, or DELETE statement is executed with no explicit declaration needed. <br/> It is controlled by Oracle, with limited developer control. Example: A SELECT ... INTO statement in PL/SQL.</p>
+                    <pre>
+                        DECLARE
+                            v_SALARY employees.salary%TYPE;
+                            v_employee_id employees.employee_id%TYPE :=100;
+                        BEGIN
+                            -- implicit cursor with select
+                            SELECT salary into v_salary from employees where employee_id = v_employee_id;
+
+                            dbms_output.put_line('Employee ID: ' || v_employee_id ', Salary: ' || v_salary);
+
+                            -- implicit cursor with update
+
+                            update employees set salary = salary*1.1 where employee_id=v_employee_id;
+
+                            -- Check implicit cursor attributes
+
+                            IF SQL%FOUND THEN
+                                dbms_output.put_line('Rows Updated: '|| SQL%ROWCOUNT);
+                            ELSE
+                                dbms_output.put_line('No rows updated.');
+                            END IF;
+
+                        EXCEPTION
+                            WHEN NO_DATA_FOUND THEN
+                                DBMS_OUTPUT.PUT_LINE('Employee ID ' || v_employee_id || ' not found.');
+                            WHEN TOO_MANY_ROWS THEN
+                                DBMS_OUTPUT.PUT_LINE('Multiple employees found for ID ' || v_employee_id);
+                            WHEN OTHERS THEN
+                                DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+                        END;
+                        /
+                        <span>
+                        If no row is found, NO_DATA_FOUND is raised; if multiple rows are returned, TOO_MANY_ROWS is raised.<br/>
+                        SQL%FOUND: Returns TRUE if the UPDATE affected at least one row.<br/>
+                        SQL%ROWCOUNT: Returns the number of rows affected by the UPDATE.<br/>
+                        These attributes are prefixed with SQL for implicit cursors (unlike explicit cursors, which use the cursor name, e.g., cursor_name%FOUND).<br/></span>
+                    </pre>
+                    <p><strong>Implicit cursor Example 2: </strong> 
+                        DECLARE
+                            Cursor dept_cursor(p_dept_id number) 
+                                is
+                                select employee_id, first_name
+                                from employees 
+                                where department_id = p_dept_id;
+                                
+                                v_employee_id employees.employee_id%TYPE;
+                                v_first_name employees.first_name%TYPE;
+
+                        BEGIN
+
+                            OPEN dept_cursor(30);
+                            LOOP
+                                FETCH dept_cursor into v_employee_id, v_first_name;
+                                EXIT when dept_cursor%NOTFOUND;
+                                DBMS_OUTPUT.PUT_LINE('ID: ' || v_employee_id || ', Name: ' || v_first_name);
+                            END LOOP;
+                            CLOSE dept_cursor;
+                        END;
+                        /
+                    </p>
+
+                    <p><strong>Using Cursors in Functions: </strong>
+                    <pre>
+                        CREATE OR REPLACE FUNCTION get_dept_salary(p_dept_id IN NUMBER)
+                            RETURN NUMBER IS
+                            CURSOR salary_cursor IS SELECT salary FROM employees WHERE department_id = p_dept_id;
+
+                            v_salary employees.salary%TYPE;
+                            v_total_salary NUMBER := 0;
+
+                            BEGIN
+                                OPEN salary_cursor;
+                            LOOP
+                                FETCH salary_cursor INTO v_salary;
+                                EXIT WHEN salary_cursor%NOTFOUND;
+                                v_total_salary := v_total_salary + v_salary;
+                            END LOOP;
+                            CLOSE salary_cursor;
+                            RETURN v_total_salary;
+                            EXCEPTION
+                            WHEN OTHERS THEN
+                                IF salary_cursor%ISOPEN THEN
+                                    CLOSE salary_cursor;
+                                END IF;
+                                RAISE_APPLICATION_ERROR(-20001, 'Error: ' || SQLERRM);
+                            END;
+                            /
+                            <br/>
+                            SELECT get_dept_salary(50) AS total_salary FROM dual;
+                            <pre>
+                                <strong>Best Practices: Use FOR Loops:</strong>   Simplify cursor handling with a FOR loop, which implicitly opens, fetches, and closes:<br/>
+                                    FOR emp_rec IN (SELECT employee_id, first_name FROM employees WHERE department_id = 10) LOOP
+                                        DBMS_OUTPUT.PUT_LINE(emp_rec.employee_id || ': ' || emp_rec.first_name);
+                                    END LOOP;
+                            </pre>
+                    </pre>
+                </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    Triggers
+                </div>
+                <div class="answer">
+                    <p>
+                        Oracle triggers are PL/SQL blocks that execute in response to database events, such as INSERT, UPDATE, DELETE, or DDL operations to enforce business rules, maintain audit trails, or automate tasks. <br/> 
+                        Triggers are stored in the database and linked to a table or schema event.<br/>
+                        Triggers can be DML Triggers ( BEFORE or AFTER row level (per row affected) or statement level (once per statement) INSERT, UPDATE, or DELETE events), <br/>
+                        INSTEAD OF Triggers (DMLs on views that would otherwise fail), DDL Triggers, and Database Event Triggers (on system events like LOGON, LOGOFF, or SHUTDOWN)
+                    </p>
+                    <p>
+                        <strong>Syntax: </strong>
+                        <pre>
+                            CREATE [OR REPLACE] TRIGGER trigger_name
+                            {BEFORE | AFTER | INSTEAD OF} {INSERT | UPDATE | DELETE | DDL_event}
+                            [OF column_name] ON table_name | schema 
+                            [FOR EACH ROW] [WHEN (condition)]
+                            DECLARE
+                                -- Declarations
+                            BEGIN
+                                -- Trigger logic
+                            EXCEPTION
+                                -- Exception handling
+                            END;
+                            /
+                            <strong>Key Points</strong>
+                            <pre>
+                                :NEW and :OLD are pseudo-records used in row-level DML triggers to access new and old column values.<br/>
+                                    :NEW: Updated or inserted values.<br/>
+                                    :OLD: Original values before update or delete.<br/>
+                                Triggers cannot commit or roll back transactions directly (except autonomous transactions).<br/>
+                            </pre>
+                        </pre>
+                    </p>
+                    <p>
+                        <strong>Example 1:</strong>
+                        <pre>
+                            Create table orders_log(
+                                changed_on timestamp not null,
+                                change_type char(1) NOT NULL,
+                                order_num INT NOT NULL
+                            );
+
+                            Create or replace trigger orders_after_insert
+                            AFTER INSERT ON orders 
+                            FOR EACH ROW
+                            BEGIN
+
+                            INSERT INTO orders_log(changed_on, changed_type, order_num)
+                            VALUES (SYSDATE, 'A', :NEW.order_num);
+
+                            END;
+                            /
+
+                            Create or replace trigger orders_after_delete
+                            AFTER DELETE ON orders 
+                            FOR EACH ROW
+                            BEGIN
+
+                            INSERT INTO orders_log(changed_on, changed_type, order_num)
+                            VALUES (SYSDATE, 'D', :OLD.order_num);
+
+                            INSERT INTO orders_archive(order_num, order_date, cust_id)
+                            VALUES (:OLD.order_num, :OLD.order_date, :OLD.cust_id);
+
+                            END;
+                            /
+
+                            Create or replace trigger cust_before_insert_update
+                            
+                            Before INSERT OR UPDATE ON customers 
+                            
+                            FOR EACH ROW
+
+                            BEGIN
+
+                            :NEW.cust_state := Upper(:NEW.cust_state);
+
+                            END;
+                            /
+                        </pre>
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    Transactions
+                </div>
+                <div class="answer">
+                    <p>
+                        <strong>Transaction Keywords: </strong> Transaction (block of SQL statements), Rollback (Undo SQL statement), Commit (Write unsaved SQL to DB), Savepoint (Temp placeholder in transaction)
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    Security
+                </div>
+                <div class="answer">
+                    <p> <strong>List all user accounts: </strong> Select * from dba_users;</p>
+                    <p> <strong>Create and drop user account: </strong> Create user test_u Identified by "p@$$w0rd"; Drop user test_u;</p>
+                    <p> Rights granted to newly created user accounts are reffered as privileges and they are stored in <strong>sys.dba_sys_privs</strong>. </p>
+                    <p> <strong>Retrieve all privileges assigned to the newly created user: </strong> Select privilege from sys.dba_sys_privs where grantee = 'test_u'; -- empty</p>
+                    <p> <strong> Grant privileges to test_u:  </strong> Grant select on customers to test_u; Grant select, INSERT, UPDATE on customers to test_u;</p>
+                    <p> <strong> Revoke privileges from test_u:  </strong> Revoke select, INSERT, UPDATE on customers from test_u;</p>
+                    <p> <strong> Changing password for test_u:  </strong> Alter user test_u Identified by "10ngerp@$$w0rd" replace "p@$$w0rd";</p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    Oracle Datatypes
+                </div>
+                <div class="answer">
+                    <p> <strong>String Datatypes : </strong> CHAR, LOB, LONG, NCHAR, NVARCHAR, VARCHAR</p>
+                    <p> <strong>Numeric Datatypes : </strong> BINARY_FLOAT, BINARY_DOUBLE, NUMBER, NCHAR, NVARCHAR, VARCHAR</p>
+                    <p> <strong>Date and Time Datatypes : </strong> Date, TIMESTAMP, TIMESTAMP With time zone</p>
+                    <p> <strong>Binary Datatypes : </strong> BLOB, BFILE, CLOB, TIMESTAMP</p>
+                </div>
+            </div>
+    </body>
+    <script>
+        document.querySelectorAll('.qa-section').forEach(section => {
+            section.addEventListener('click', () => {
+                section.classList.toggle('active');
+            });
+        });
+    </script>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Algorithm Categories and Examples</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a3c58;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .qa-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 5px solid #0288d1;
+            background: #fafafa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .qa-section:hover {
+            background: #f0f8ff;
+        }
+
+        .question {
+            font-weight: 600;
+            color: #1a3c58;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question::after {
+            content: '▼';
+            font-size: 0.8em;
+            color: rotate(0deg);
+        }
+
+        .qa-section.active .question::after {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            display: none;
+            margin-top: 12px;
+            color: #444;
+            padding-left: 10px;
+        }
+
+        .qa-section.active .answer {
+            display: block;
+        }
+
+        .answer p {
+            margin-bottom: 10px;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .answer pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .answer code {
+            font-family: 'Consolas', monospace;
+            background: #e0e7ff;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .qa-section {
+                padding: 10px;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .answer pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Algorithm Categories and Examples</h1>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Brute Force Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>A Brute Force Algorithm is the straightforward approach i.e., the first approach that comes to our mind on seeing the problem.</p>
+                    <p>More technically it is just like iterating every possibility available to solve that problem.</p>
+                    <p><strong>Example 1: </strong>find two numbers in an array that add up to a given target sum.</p>
+                    <pre>public static int[] findSum(int[] nums, int target) {
+                            for (int i = 0; i < nums.length; i++) {
+                                for (int j = i + 1; j < nums.length; j++) {
+                                    if (nums[i] + nums[j] == target) {
+                                        return new int[]{i, j}; // Return indices of the two numbers
+                                    }
+                                }
+                            }
+                            return null; // No solution found
+                        }
+                    </pre>
+                    <p><strong>Example 2: </strong>find all possible combinations of a given string (e.g., generating all permutations):</p>
+                    <pre>
+                        public static void permute(String str, String result) {
+                            // Base case: if no characters left to permute, print the result
+                            if (str.length() == 0) {
+                                System.out.println(result);
+                                return;
+                            }
+
+                            // Try each character as the next in permutation
+                            for (int i = 0; i < str.length(); i++) {
+                                // Get current character
+                                char ch = str.charAt(i);
+                                // Form the remaining string by excluding the current character
+                                String remaining = str.substring(0, i) + str.substring(i + 1);
+                                // Recurse with the remaining string and add current char to result
+                                permute(remaining, result + ch);
+                            }
+                        }
+
+                        public static void main(String[] args) {
+                            String input = "ABC";
+                            System.out.println("All permutations of " + input + ":");
+                            permute(input, "");
+                        }
+                    </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Recursive Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>A process in which a function calls itself directly or indirectly is called recursion and the corresponding function is called a recursive function. </p>
+                    <p>A recursive algorithm takes one step toward solution and then recursively call itself to further move. The algorithm stops once we reach the solution.</p>
+                    <p><strong>Example: </strong>Factorial of a Number</p>
+                    <pre>public static int fact(int n) {
+                            // BASE CONDITION
+                            if (n == 0)
+                                return 1;
+                        
+                            return n * fact(n - 1);
+                        }
+
+                        public static void main(String[] args) {
+                            System.out.println("Factorial of 5 : " + fact(5));
+                        }
+                    </pre>
+                    <p><strong>Example 2: </strong>Fibonacci with Recursion:</p>
+                    <pre>
+                        function fib(n) {
+                            if(n==0) return 0;
+                            if(n==1 || n==2) return 1;
+                            return fib(n-1) + fib(n-2); 
+                        }
+
+                        let n = 5;
+
+                        console.log("Fibonacci series of 5 numbers is: ");
+                        for(let i=0;i<span>n;i++</span>){
+                            console.log(fib(i)+ " ");
+                        }
+                    </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Divide and Conquer Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>A divide and conquer algorithm is a strategy for solving problems by breaking them into smaller subproblems, solving each subproblem independently, and then combining their solutions to solve the original problem. <br/>It’s like tackling a big task by splitting it into manageable chunks, solving each chunk, and piecing the results together.</p>
+                    <p><strong> Example 1 Binary Search: </strong>
+                        <pre> 
+                            public static int binarySearch(int[] arr, int target, int left, int right){
+                                if(left>right){
+                                    return -1;
+                                }
+                                int mid = left + (right-left)/2;
+                                if(arr[mid]==target){
+                                    return mid;
+                                } else if(arr[mid]>target){
+                                    return binarySearch(arr, target, left, mid-1);
+                                } else{
+                                    return binarySearch(arr,target,mid+1, right);
+                                }
+                            }
+
+                            public static void main(String[] args){
+                                int arr = [2,3,4,10,40,50,60,70];
+                                int target = 10;
+                                int result = binarySearch(arr, target, 0, arr.length - 1);
+                                System.out.println("Element : "+ target + " found at index: "+ result);
+                            }
+                        </pre>
+                    </p>
+                    <p><strong>Example 2 Merge Sort: </strong> 
+                        <pre> 
+                            public static void mergeSort(int[] arr, int left, int right){
+                                if(left less than right){
+                                    int mid = left + (right-left)/2;
+                                    mergeSort(arr, left, mid);
+                                    mergeSort(arr, mid + 1, right);
+                                    merge(arr, left, mid, right);
+                                }
+                            }
+
+                            private static void merge(int[] arr, int left, int mid, int right){
+                                int n1 = mid - left + 1;
+                                int n2 = right - mid;
+
+                                int[] leftArr = new int[n1];
+                                int[] rightArr = new int[n2];
+
+                                for(int i=0;i less than n1;i++){
+                                    leftArr[i] = arr[left+i];
+                                }
+
+                                for(int j=0;j less than n2;j++){
+                                    rightArr[j] = arr[mid+1+j];
+                                }
+
+                                //merge temporary arrays
+
+                                int i=0, j=0, k = left;
+
+                                while(i less than n1 && j less than n2){
+                                    if(leftArr[i]less than = rightArr[j]){
+                                        arr[k++] = leftArr[i++];
+                                    } else{
+                                        arr[k++] = rightArr[j++];
+                                    }
+                                }
+                                // Copy remaining elements
+                                while (i less than n1) arr[k++] = leftArr[i++];
+                                while (j less than n2) arr[k++] = rightArr[j++];
+                            }
+                            public static void main(String[] args) {
+                                int[] arr = {64, 34, 25, 12, 22, 11, 90};
+                                mergeSort(arr, 0, arr.length - 1);
+                                System.out.println("Sorted array: " + java.util.Arrays.toString(arr));
+                            }
+                        </pre>
+                    </p>
+                    
+                    <p><strong>Example 2: Quicksort</strong>:</p>
+                    <pre> 
+                        function quickSort(arr, low, high) {
+                            if (low lessthan high) {
+                                // Partition the array and get the pivot index
+                                let pi = partition(arr, low, high);
+                                // Recursively sort the left and right partitions
+                                quickSort(arr, low, pi - 1);
+                                quickSort(arr, pi + 1, high);
+                            }
+                        }
+
+                        function partition(arr, low, high) {
+                            let pivot = arr[high]; // Choose the last element as pivot
+                            let i = low - 1; // Index of smaller element
+
+                            for (let j = low; j lessthan high; j++) {
+                                // If current element is smaller than or equal to pivot
+                                if (arr[j] lessthan = pivot) {
+                                    i++;
+                                    // Swap elements
+                                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                                }
+                            }
+                            // Place pivot in its correct position
+                            [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+                            return i + 1; // Return pivot index
+                        }
+
+                        // Example usage
+                        let arr = [64, 34, 25, 12, 22, 11, 90];
+                        quickSort(arr, 0, arr.length - 1);
+                        console.log("Sorted array:", arr);
+                    </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Dynamic Programming Algorithms</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Greedy Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Backtracking Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Randomized Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Sorting Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Searching Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Hashing Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+    </body>
+    <script>
+        document.querySelectorAll('.qa-section').forEach(section => {
+            section.addEventListener('click', () => {
+                section.classList.toggle('active');
+            });
+        });
+    </script>
+</html>

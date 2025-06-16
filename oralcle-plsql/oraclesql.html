@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Oracle SQL FAQ</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a3c58;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .qa-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 5px solid #0288d1;
+            background: #fafafa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .qa-section:hover {
+            background: #f0f8ff;
+        }
+
+        .question {
+            font-weight: 600;
+            color: #1a3c58;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question::after {
+            content: '▼';
+            font-size: 0.8em;
+            color: rotate(0deg);
+        }
+
+        .qa-section.active .question::after {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            display: none;
+            margin-top: 12px;
+            color: #444;
+            padding-left: 10px;
+        }
+
+        .qa-section.active .answer {
+            display: block;
+        }
+
+        .answer p {
+            margin-bottom: 10px;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .answer pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .answer code {
+            font-family: 'Consolas', monospace;
+            background: #e0e7ff;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .qa-section {
+                padding: 10px;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .answer pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Oracle SQL FAQ</h1>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Databases can be shared-filed based or client-server based</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>Databases such as Oracle, SQL Server, MySQL (and its offshoot MariaDB) are client-server based.</p>
+                    <p>Microserver Access and File Maker are file based designed for Desktop use.</p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>SQL, PL-SQL and tools used to communicate</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>PL/SQL is Oracle's SQL implementation which stands for Procedural Language / Structured Query Language.</p>
+                    <p>SQL *PLUS or SQL Developer can be used as a means to communicate to Database Server.</p>
+                    <p><strong>Example 1: </strong> select * from PRODUCTS; </p>
+                    <p><strong>Example 2: </strong> select prod_name from PRODUCTS;</p>
+                    <p><strong>Example 3: </strong> select prod_id, prod_name, prod_price from PRODUCTS;</p>
+                    <p><strong>Example 4: Current Date Time: </strong>select to_char(SYSDATE, 'DD-MON-YYYY HH:MI:SS') as currentDateTime from DUAL;</p>
+                    <p><strong>Example 5: Unique results: </strong>select distinct vend_id from  PRODUCTS;</p>
+                    <p><strong>Example 6: Using fully qualified table names: </strong>select products.prod_name from PRODUCTS;--comment</p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Sorting and filtering data</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p><strong>Example 1: </strong>select prod_name from prodcts order by prod_name; -- default sort</p>
+                    <p><strong>Example 2: </strong>select prod_id, prod_price, prod_name from products order by product_price, prod_name;</p>
+                    <p><strong>Example 3: </strong>select prod_id, prod_price, prod_name from products order by 2,3;</p>
+                    <p><strong>Example 4: </strong>select prod_id, prod_price, prod_name from products order by prod_price desc, prod_name;</p>
+                    <p><strong>Example 5: </strong>select prod_name, prod_price from products where prod_price=2.50;</p>
+                    <p><strong>Example 6: </strong>select prod_name, prod_price from products where prod_name='fuses';</p>
+                    <p><strong>Example 7: </strong>select prod_name, prod_price from products where vend_id<>1003;</p>
+                    <p><strong>Example 8: </strong>select prod_name, prod_price from products where vend_id!>1003;</p>
+                    <p><strong>Example 9: </strong>select prod_name, prod_price from products where prod_price between 5 and 10;</p>
+                    <p><strong>Example 10:</strong>select * from customers where cust_email is null;</p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>SQL, PL/SQL operators</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p><strong>In operator Example: </strong> select prod_name, prod_price from products where vend_id in (1002, 1003) order by prod_name;</p>
+                    <p><strong>Not in operator Example: </strong> select prod_name, prod_price from products where vend_id not in (1002, 1003) order by prod_name;</p>
+                    <p><strong>Wildcards Example 1: </strong> Select prod_id, prod_name from products where prod_name like 'Jet%';</p>
+                    <p><strong>Wildcards Example 2: </strong> Select prod_id, prod_name from products where prod_name like '%anvil%';</p>
+                    <p><strong>Wildcards Example 3: </strong> Select prod_id, prod_name from products where prod_name like '_anvil%';</p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Using Oracle PL/SQL regular expressions</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p><strong>REGEXP_LIKE() Example 1: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '1000') order by prod_name; -- that contain 1000</p>
+                    <p><strong>REGEXP_LIKE() Example 2: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '.000') order by prod_name; -- can be 1000/2000(. means any character)</p>
+                    <p><strong>REGEXP_LIKE() Example 3: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '1000|2000') order by prod_name; -- can be 1000/2000</p>
+                    <p><strong>REGEXP_LIKE() Example 4: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '[123] ton') order by prod_name; -- can be 1 or 2 or 3 followed by 'ton'</p>
+                    <p><strong>REGEXP_LIKE() Example 5: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '1|2|3 ton') order by prod_name; -- can be 1 or 2 or ('3 ton')</p>
+                    <p><strong>REGEXP_LIKE() Example 6: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '[^123] ton') order by prod_name; -- anything but 1 or 2 or 3 followed by ton</p>
+                    <p><strong>REGEXP_LIKE() Example 7: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '[1-5] ton') order by prod_name; -- 1 to 5 followed by ton</p>
+                    <p><strong>REGEXP_LIKE() Example 8: </strong> select vend_name from vendors where REGEXP_LIKE (vend_name, '\.') order by vend_name; -- dot character</p>
+                    <p><strong>REGEXP_LIKE() Example 9: </strong> select vend_name from vendors where REGEXP_LIKE (vend_name, '\\') order by vend_name; -- forward slash character</p>
+                    <p><strong>REGEXP_LIKE() Example 10: </strong> select prod_name from products where REGEXP_LIKE (prod_name, '\(\d sticks?\)') order by prod_name; -- brackets followed by a digit followed by stick or sticks</p>
+                    <p><strong>REGEXP_LIKE() Example 11: </strong>select prod_name from products where REGEXP_LIKE (prod_name, '\d{4}') order by prod_name; -- a digit * 4</p>
+                    <p><strong>REGEXP_LIKE() Example 12: </strong>select prod_name from products where REGEXP_LIKE (prod_name, '[0-9]{4}') order by prod_name; -- a digit * 4</p>
+                    <p><strong>REGEXP_REPLACE() Example 13: </strong>With strings as (select 'abc123' s from dual union all select 'abc123' s from dual union all select 'a1b2c3' s from dual) select s "STRING", regexp_replace(s, '[0-9]','') "MODIFIED_STRING" from strings; -- replaces numbers in strings by emptystring</p>
+                    <p><strong>REGEXP_REPLACE() Example 14: </strong>With strings as (select 'abc123' s from dual union all select 'abc123' s from dual union all select 'a1b2c3' s from dual) select s "STRING", regexp_replace(s, '[0-9]','',1,1) "MODIFIED_STRING" from strings; -- replaces first number occurrence in strings by emptystring</p>
+                    <p><strong>REGEXP_REPLACE() Example 15: </strong>With strings as (select 'abc123' s from dual union all select 'abc123' s from dual union all select 'a1b2c3' s from dual) select s "STRING", regexp_replace(s, '[0-9]','',1,2) "MODIFIED_STRING" from strings; -- replaces second num occurrence in strings by emptystring</p>
+                    <p><strong>REGEXP_REPLACE() Example 16: </strong>With strings as (select 'Hello  World' s from dual union all select 'Hello        World' s from dual union all select 'Hello,   World  !' s from dual) select s "STRING", regexp_replace(s, ' {2,}', ' ') "MODIFIED_STRING" from strings; -- Convert multiple spaces into a single space </p>
+                    <p><strong>REGEXP_REPLACE() Example 17: </strong>WITH date_strings AS ( SELECT  '2015-01-01' d from dual union all SELECT '2000-12-31' d from dual union all SELECT '900-01-01' d from dual ) SELECT d "STRING", regexp_replace(d, '([[:digit:]]+)-([[:digit:]]{2})-([[:digit:]]{2})', '\3.\2.\1') "MODIFIED_STRING"  FROM date_strings; -- Convert yyyy-mm-dd date formats to dd.mm.yyyy  </p>
+                    <p><strong>REGEXP_SUBSTR() Example 18: </strong>with strings as ( select 'ABC123' str from dual union all select 'A1B2C3' str from dual union all select '123ABC' str from dual union all select '1A2B3C' str from dual)select regexp_substr(str, '[0-9]') first_number, /* Returns the first number */  
+                                                                                      regexp_substr(str, '[0-9].*') first_number_followed_by_all, /* Returns the first number and the rest of the string */  
+                                                                                      regexp_substr(str, '[A-Z][0-9]') first_letter_with_num_after /* Returns the first letter with a following number */ 
+                                                                                      from   strings; -- Convert yyyy-mm-dd date formats to dd.mm.yyyy  </p>
+                    <p><strong>REGEXP_INSTR() Example 19: </strong>SELECT emailID, REGEXP_INSTR(emailID, '\w+@\w+(\.\w+)+') "IS_A_VALID_EMAIL" FROM regexp_temp; -- Query the table columns and check the specified string is contained in the column value; -- Convert yyyy-mm-dd date formats to dd.mm.yyyy </p>                                           
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Creating calculated fields</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+                    <li><strong>Concatinating fields Example 1: </strong> select vend_name || ', (' || vend_country || ')' from vendors order by vend_name;</li>
+                    <li><strong>Concatinating fields and right trim spaces Example 2: </strong> select RTrim(vend_name) || ', (' || RTrim(vend_country) || ')' as vend_name_country from vendors order by vend_name;</li>
+                    <li><strong>Concatinating fields and trim spaces Example 3: </strong> select LTrim(RTrim(vend_name)) || ', (' || LTrim(RTrim(vend_country)) || ')' as vend_name_country from vendors order by vend_name;</li>
+                    <li><strong>Math calculations Example 1: </strong> select prod_id, quantity, item_price, quantity * item_price AS expanded_price from orderitems where order_num = 20005; </li>
+                    <li><strong>Text manipulation Example 1: </strong> select vend_name, Upper(vend_name) AS vend_name_upcase from vendors ORDER BY vend_name;</li>
+                    <li><strong>Text manipulation Example 2: </strong> select vend_name, SOUNDEX(vend_name) AS vend_name_soundex from vendors ORDER BY vend_name;</li>
+                    <li><strong>Text manipulation Example 3: </strong> select vend_name, length(vend_name) AS vend_name_length,  length(trim(vend_name)) AS vend_name_trimmed, lower(vend_name) AS vend_name_lower from vendors ORDER BY vend_name;</li>
+                    <li><strong>Date time manipulation Example 1: </strong> select cust_id, order_num from orders where order_date = TO_DATE('2015-02-01','YYYY-MM-DD');</li>
+                    <li><strong>Date time manipulation Example 2: </strong> select cust_id, order_num from orders where order_date >= TO_DATE('2015-02-01','YYYY-MM-DD') AND order_date <= TO_DATE('2015-03-01','YYYY-MM-DD');</li>
+                    <li><strong>Date time manipulation Example 3: </strong> SELECT cust_id, order_num from orders where extract(Year from order_date) = 2015 AND EXTRACT (Month FROM order_date) = 2; </li>                                           
+                    <li><strong>Date time manipulation Example 4: </strong> select prod_id, abs(item_price) abs_item_price, cos(item_rice) cos_item_price, exp(item_price) exp_item_price, mod(item_price, 2) mod_item_price, sin(item_price) sin_item_price, Sqrt(item_price) sqrt_item_price, Tan(item_price) tan_item_price from ORDERITEMS; </li>                                           
+                    <li><strong>Aggregate functions Example 1: </strong> select avg(item_price) avg_item_price, count(item_price) count_item_price, max(item_price) max_item_price, min(item_price) min_item_price, sum(item_price) sum_item_price, sum(item_price*quantity) sum_total_item_price_quantity, avg(distinct item_price) as avg_distinct_item_price from ORDERITEMS; </li> 
+                    <li><strong>Aggregate functions Example 2: </strong> select vend_id, count(*) as num_products from products where prod_price>=10 group by vend_id having count(*)>=2; </li> 
+                    <li><strong>Aggregate functions Example 3: </strong> select order_num, sum(quantity*item_price) as ordertotal from orderitems group by order_num having sum(quantity*item_price)>=50; </li> 
+                    <li><strong>Select clause ordering : </strong> select columns list ... from table name where condition group by (group by function) having (group level filtering) order by (sort order); </li> 
+                    </ol>                                         
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Subqueries,Joins, combined queries</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+                        <li><strong>Oracle allows 255 nested Subqueries</strong> select * from orders where order in ( ... where in ())</li>
+                        <li><strong>Subquery Example 1: </strong> select x,y (select count(*) from ..) z from  </li>
+                        <li><strong>Subquery Example 2: </strong> select * from colours c where  exists ( select null from bricks b where  b.colour = c.colour_name);  </li>
+                        <li><strong>Subquery Example 3: </strong> select * from colours c where  exists ( select null from bricks b where  b.colour = c.colour_name and    b.brick_id less than 5);  </li>
+                        <li><strong>Subquery Example 4: </strong> select * from colours c where  c.colour_name not in ( select b.colour from bricks b ); </li>
+                        <li><strong>Oracle vs Ansi join: </strong>  Oracle Database has two syntaxes for joining tables. The proprietary Oracle method. And the ANSI standard way.<br/>Oracle syntax joins tables in the where clause. ANSI style has a separate join clause. This tutorial will show both methods. <br/> The ANSI syntax clearly separates the join and filter clauses.  </li>
+                        <li><strong>Cross joins Example 1: </strong> select * from toys, bricks; select * from toys cross join bricks; </li>
+                        <li><strong>Inner join Example 1: </strong> select * from toys, bricks where toy_id = brick_id; select * from  toys inner join bricks on toy_id = brick_id; select * from toys join bricks on toy_colour <> brick_colour;</li>
+                        <li><strong>Outer joins: </strong>An outer join returns all the rows from one table along with the matching rows from the other. <br/>  An outer join can either be left or right. <br/> select * from toys left outer join bricks on toy_id = brick_id; select * from toys, bricks where  toy_id = brick_id (+);select * from   toys right  join bricks on toy_id = brick_id; select * from bricks left   join toys on toy_id = brick_id;<br/></li>
+                        <li><strong>Full outer joins: </strong>select * from toys full join bricks on toy_id = brick_id; </li>
+                        <li><strong>union Example 1: </strong> select * from   toys, bricks where  toy_id = brick_id (+) union select * from   toys, bricks where  toy_id (+) = brick_id and toy_id is null;  </li>
+                        <li><strong>union all Example 1: </strong> select * from toys, bricks where  toy_id = brick_id (+) union all select * from toys, bricks where toy_id (+) = brick_id and toy_id is null;  </li>
+                        <li><strong>union all Example 2: </strong> select vend_id, prod_id, prod_price from products where prod_price <= 5 union all select vend_id, prod_id, prod_price from products where vend_id in (1001, 1002);</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="qa-section">
+                <div class="question">
+                    <span>Insert, update, delete</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+                        <li><strong>Insert Example 1: </strong> insert into customers values(10006, 'Pep E. Lapew', '100 Main Street', 'Los Angeles', 'CA', '90046', 'USA', NULL, NULL)</li>
+                        <li><strong>Insert Example 2: </strong> insert into customers(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country) values(10006, 'Pep E. Lapew', '100 Main Street', 'Los Angeles', 'CA', '90046', 'USA')</li>
+                        <li><strong>Insert Example 3: </strong> insert into customers(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country) select cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country from custnew;</li>
+                        <li><strong>Update Example 1: </strong> Update customers set cust_email = 'elmer@fudd.com' where cust_id=10005;  </li>
+                        <li><strong>Update Example 2: </strong> Update customers set cust_email = 'elmer@fudd.com', cust_name='The Fudds' where cust_id=10005;  </li>
+                        <li><strong>Delete Example 1: </strong> Delete from customers where cust_id=10006;  </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="qa-section">
+                <div class="question">
+                    <span>Create, alter, drop</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+                        <li><strong>Create table Example 1: </strong> CREATE TABLE customers ( cust_id int NOT NULL, cust_name char(50)  NOT NULL, cust_address char(50) NULL, cust_city char(50)  NULL, cust_state  char(5)   NULL, cust_zip char(10)  NULL, cust_country char(50)  NULL, cust_contact char(50)  NULL, cust_email char(255) NULL); </li>
+                        <li><strong>Create table Example 2: </strong> CREATE TABLE orderitems ( order_num  int NOT NULL, order_item int NOT NULL, prod_id char(10) NOT NULL , quantity  int NOT NULL, item_price decimal(8,2) NOT NULL); </li>
+                        <li><strong>Alter table Example 1: </strong> Alter TABLE vendors add vend_phone char(20); </li>
+                        <li><strong>Alter table Example 2: </strong> Alter TABLE vendors drop column vend_phone; </li>
+                        <li><strong>Alter table Example 3: </strong> Alter TABLE vendors add constraint pk_customers primary key (cust_id); </li>
+                        <li><strong>Alter table Example 4: </strong> Alter TABLE vendors add constraint fk_orderitems foreign key (order_num) references orders (order_num); </li>
+                        <li><strong>Alter table Example 5: </strong> Alter TABLE customers2 rename to customers; </li>
+                        <li><strong>Drop table Example 1: </strong> drop TABLE customers2; </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="qa-section">
+                <div class="question">
+                    <span>Views</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+                        <li>Views are virtual tables </li>
+                        <li><strong>Create view Example 1: </strong> CREATE view customeremaillist as select cust_id, cust_name, cust_email from customers where cust_email is not null; </li>
+                        <li><strong>Cases in which views update is not allowed: </strong> views that has grouping, Joins, Subqueries, Unions, Aggregate functions, Distinct, Derived columns; </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="qa-section">
+                <div class="question">
+                    <span>Stored Procedures, Functions, Cursors, Triggers, Transactions</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>Continues in part-2 </p>
+                </div>
+            </div>
+    </body>
+    <script>
+        document.querySelectorAll('.qa-section').forEach(section => {
+            section.addEventListener('click', () => {
+                section.classList.toggle('active');
+            });
+        });
+    </script>
+</html>

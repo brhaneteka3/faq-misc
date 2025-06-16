@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Oracle PL-SQL Developer Certified Professional Exam Review Topics</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a3c58;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .qa-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 5px solid #0288d1;
+            background: #fafafa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .qa-section:hover {
+            background: #f0f8ff;
+        }
+
+        .question {
+            font-weight: 600;
+            color: #1a3c58;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question::after {
+            content: '▼';
+            font-size: 0.8em;
+            color: rotate(0deg);
+        }
+
+        .qa-section.active .question::after {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            display: none;
+            margin-top: 12px;
+            color: #444;
+            padding-left: 10px;
+        }
+
+        .qa-section.active .answer {
+            display: block;
+        }
+
+        .answer p {
+            margin-bottom: 10px;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .answer pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .answer code {
+            font-family: 'Consolas', monospace;
+            background: #e0e7ff;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .qa-section {
+                padding: 10px;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .answer pre {
+                font-size: 0.85em;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Oracle PL-SQL Developer Certified Professional Exam Review Topics</h1>
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>Advantages of PL/SQL</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ul>
+                        <li>Tight Integration with SQL</li>
+                        <li>Support for Object-Oriented Programming</li>
+                    </ul>
+                    <p><strong>PL/SQL Engine</strong> The PL/SQL compilation and runtime system is an engine that compiles and runs PL/SQL units. <br/>
+                        The engine can be installed in the database or in an application development tool, such as Oracle Forms. In either environment, the PL/SQL engine accepts as input any valid PL/SQL unit. <br/> 
+                        The engine runs procedural statements, but sends SQL statements to the SQL engine in the database. <br/>
+                        PL/SQL uses the database character set to represent: Stored source text of PL/SQL units, Character values of data types CHAR, VARCHAR2, CLOB, and LONG 
+                        Every database character set includes these basic characters: <br/> Latin letters: A through Z and a through z, Decimal digits: 0 through 9, <br/> Punctuation characters, Whitespace characters: space, tab, new line, and carriage return <br/>
+                        PL/SQL also uses the national character set to represent character values of data types NCHAR, NVARCHAR2 and NCLOB
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Declaring PL/SQL Variables</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+
+                        <li>Recognize valid and invalid identifiers</li>
+                            <p>
+                                Identifiers name PL/SQL elements, which include: Constants, Cursors, Exceptions, Keywords, Labels, Packages, Reserved words, Subprograms, Subprograms, Types, Variables <br/>
+                                Reserved words and keywords are identifiers that have special meaning in PL/SQL.<br/>
+                                Predefined identifiers are declared in the predefined package STANDARD. SELECT TYPE_NAME FROM ALL_TYPES WHERE PREDEFINED='YES'; <br/>
+                                A user-defined identifier is: Composed of characters from the database character set, Either ordinary or quoted. <br/> 
+                                An ordinary user-defined identifier: Begins with a letter, can include letters, digits, and these symbols (Dollar sign ($), Number sign (#), Underscore (_)), and Is not a reserved word <br/>
+                                A quoted user-defined identifier is enclosed in double quotation marks. <br/> Between the double quotation marks, any characters from the database character set are allowed except double quotation marks, new line characters, and null characters.<br/>
+                                A literal is a value that is neither represented by an identifier nor calculated from other values.
+                            </p>
+                        <li>List the uses of variables, declare and initialize variables, use bind variables</li>
+                            <p>A variable declaration always specifies the name and data type of the variable. <br/> 
+                                The data type can be any PL/SQL data type. The PL/SQL data types include the SQL datatypes. <br/>
+                                A data type is either scalar (without internal components) or composite (with internal components).</p>
+                            <pre>
+                                DECLARE
+                                    acct_id INTEGER(4) NOT NULL := 9999;
+                                    credit_limit CONSTANT REAL := 5000.00; -- SQL data type
+                                    max_days_in_year CONSTANT INTEGER := 366; -- SQL data type
+                                    urban_legend CONSTANT BOOLEAN := FALSE; -- PL/SQL-only data type
+                                    name VARCHAR2(20) := 'John Doe';  -- Initialized with a value
+                                    age NUMBER(3) DEFAULT 30;       -- Initialized with a default value
+                                    address VARCHAR2(50);           -- Initialized to NULL by default
+                                BEGIN
+                                    
+                                NULL;
+
+                                END;
+                            </pre>
+                        <li>List and describe various data types using the %TYPE and %ROWTYPE attributes<br/>
+                            The %TYPE attribute lets you declare a data item of the same data type as a previously declared variable or column (without knowing what that type is). <br/>
+                            The syntax of the declaration is: <br/> 
+                            referencing_item referenced_item%TYPE;<br/>
+                            variable_name table_name.column_name%TYPE;<br/>
+                            <pre>
+                                DECLARE
+                                    surname employees.last_name%TYPE;
+                                    name VARCHAR(25) NOT NULL := 'Smith';
+                                    surname name%TYPE := 'Jones';
+                                BEGIN
+                                    DBMS_OUTPUT.PUT_LINE('surname=' || surname);
+                                    DBMS_OUTPUT.PUT_LINE('name=' || name);
+                                    DBMS_OUTPUT.PUT_LINE('surname=' || surname);
+                                END;
+                                /
+                            </pre>
+                            When referencing an identifier, you use a name that is either simple, qualified, remote, or both qualified and remote.
+                            <pre>
+                            DECLARE
+                                a INTEGER; -- Declaration
+                            BEGIN
+                                a := 1; -- Reference with simple name
+                            END;
+                            /
+                            </pre>
+                            If an identifier is declared in a named PL/SQL unit, you can (and sometimes must) reference it with its qualified name. 
+                            
+                            <strong>unit_name.simple_identifier_name</strong>
+
+                            If the identifier names an object on a remote database, you must reference it with its remote name.
+                            <strong>simple_identifier_name@link_to_remote_database</strong>
+
+                            If the identifier is declared in a PL/SQL unit on a remote database, you must reference it with its qualified remote name. The syntax is:
+                            <strong>unit_name.simple_identifier_name@link_to_remote_database</strong>
+                            You can create synonyms for remote schema objects, but you cannot create synonyms for objects declared in PL/SQL subprograms or packages.
+                        </li>
+
+                    </ol>
+                    <p>
+                        <strong>Scope and Visibility of Identifiers</strong>
+                        <pre>
+                            -- Outer block:
+                            DECLARE
+                                a CHAR; -- Scope of a (CHAR) begins
+                                b REAL; -- Scope of b begins
+                            BEGIN
+                                -- Visible: a (CHAR), b
+                                -- First sub-block:
+                                DECLARE
+                                    a INTEGER; -- Scope of a (INTEGER) begins
+                                    c REAL; -- Scope of c begins
+                                BEGIN
+                                    -- Visible: a (INTEGER), b, c
+                                    NULL;
+                                END; -- Scopes of a (INTEGER) and c end
+                                -- Second sub-block:
+                                DECLARE
+                                    d REAL; -- Scope of d begins
+                                BEGIN
+                                    -- Visible: a (CHAR), b, d
+                                    NULL;
+                                END; -- Scope of d ends
+                                -- Visible: a (CHAR), b
+                            END; -- Scopes of a (CHAR) and b end
+                            /
+                        </pre>
+                        <p><strong> Assigning Values to Variables </strong>
+                            After declaring a variable, you can assign a value to it in these ways:<br/>
+                            Use the assignment statement to assign it the value of an expression.<br/>
+                            Use the SELECT INTO or FETCH statement to assign it a value from a table.<br/>
+                            Pass it to a subprogram as an OUT or IN OUT parameter, and then assign the value inside the subprogram.<br/>
+                            <pre>
+                                DECLARE -- You can assign initial values here
+                                    wages NUMBER;
+                                    hours_worked NUMBER := 40;
+                                    hourly_salary NUMBER := 22.50;
+                                    bonus NUMBER := 150;
+                                    country VARCHAR2(128);
+                                    counter NUMBER := 0;
+                                    done BOOLEAN;
+                                    valid_id BOOLEAN;
+                                    emp_rec1 employees%ROWTYPE;
+                                    emp_rec2 employees%ROWTYPE;
+                                    TYPE commissions IS TABLE OF NUMBER INDEX BY PLS_INTEGER;
+                                    comm_tab commissions;
+                                    emp_salary NUMBER(8,2);
+                                    
+                                    PROCEDURE adjust_salary (
+                                        emp NUMBER,
+                                        sal IN OUT NUMBER,
+                                        adjustment NUMBER
+                                    ) IS
+                                    BEGIN
+                                        sal := sal + adjustment;
+                                    END;
+                                BEGIN -- You can assign values here too
+                                    wages := (hours_worked * hourly_salary) + bonus;
+                                    country := 'France';
+                                    country := UPPER('Canada');
+                                    done := (counter > 100);
+                                    valid_id := TRUE;
+                                    emp_rec1.first_name := 'Antonio';
+                                    emp_rec1.last_name := 'Ortiz';
+                                    emp_rec1 := emp_rec2;
+                                    comm_tab(5) := 20000 * 0.15;
+                                    SELECT salary * 0.10 INTO bonus FROM employees WHERE employee_id = 100;
+                                    
+                                    DBMS_OUTPUT.PUT_LINE('bonus = ' || TO_CHAR(bonus));
+                                    
+                                    SELECT salary INTO emp_salary FROM employees WHERE employee_id = 100;
+                                    
+                                    DBMS_OUTPUT.PUT_LINE ('Before invoking procedure, emp_salary: ' || emp_salary);
+                                    
+                                    adjust_salary (100, emp_salary, 1000);
+                                    
+                                    DBMS_OUTPUT.PUT_LINE('After invoking procedure, emp_salary: ' || emp_salary);
+                                    
+                                END;
+                                /
+                            </pre>
+                        </p>
+                        
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>Writing Executable Statements</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <ol>
+                        <li> <strong>Concatenation Operator</strong> 
+                            DBMS_OUTPUT.PUT_LINE (x || y);
+                            DBMS_OUTPUT.PUT_LINE ('apple' || NULL || NULL || 'sauce');
+                        </li>
+                        <li> <strong>Comparison Operators</strong>
+                            The comparison operators are: IS [NOT] NULL Operator, Relational Operators (=, <=, >=, <, >, <>, !=,~=, ^=), LIKE Operator, BETWEEN Operator, IN Operator<br/>
+                            In Boolean comparison, TRUE is greater than FALSE. Any comparison with NULL returns NULL <br/>
+                            In Character comparison, one character is greater than another if its binary value is larger. Strings are compared character by character. <br/>
+                            To make comparisons case-insensitive, append _CI to the value of the NLS_SORT parameter (for example, BINARY_CI or XGERMAN_CI). <br/>
+
+                            To make comparisons both case-insensitive and accent-insensitive ('Cooperate' = 'Co-Operate'), append _AI to the value of the NLS_SORT parameter (for example, BINARY_AI or FRENCH_M_AI). <br/>
+                        </li>
+                        <li><strong>Date Comparisons, LIKE Operator, BETWEEN Operator, IN Operator, BOOLEAN Expressions</strong>
+                            <pre>
+                                DECLARE
+                                    PROCEDURE compare (
+                                        value VARCHAR2,
+                                        pattern VARCHAR2
+                                    ) IS
+                                    BEGIN
+                                        IF value LIKE pattern THEN
+                                            DBMS_OUTPUT.PUT_LINE ('TRUE');
+                                        ELSE
+                                            DBMS_OUTPUT.PUT_LINE ('FALSE');
+                                        END IF;
+                                    END;
+
+                                    PROCEDURE half_off (sale_sign VARCHAR2) IS
+                                    BEGIN
+                                        IF sale_sign LIKE '50\% off!' ESCAPE '\' THEN
+                                        DBMS_OUTPUT.PUT_LINE ('TRUE');
+                                    ELSE
+                                        DBMS_OUTPUT.PUT_LINE ('FALSE');
+                                    END IF;
+                                    END;
+                                BEGIN
+                                    compare('Johnson', 'J%s_n');
+                                    compare('Johnson', 'J%S_N');
+                                    half_off('Going out of business!');
+                                    half_off('50% off!');
+                                END;
+                                /
+                            </pre>
+                        </li>
+                        <li> <strong>CASE Expressions</strong>
+                            <pre>
+                                -- Simple case expression:  Compares a single expression (the selector) to a series of possible values.
+                                DECLARE
+                                    grade CHAR(1) := 'B';
+                                    appraisal VARCHAR2(20);
+                                BEGIN
+                                    appraisal :=
+                                    CASE grade
+                                    WHEN NULL THEN 'No grade assigned'
+                                    WHEN 'A' THEN 'Excellent'
+                                    WHEN 'B' THEN 'Very Good'
+                                    WHEN 'C' THEN 'Good'
+                                    WHEN 'D' THEN 'Fair'
+                                    WHEN 'F' THEN 'Poor'
+                                    ELSE 'No such grade'
+                                    END;
+                                    DBMS_OUTPUT.PUT_LINE ('Grade ' || grade || ' is ' || appraisal);
+                                END;
+                                /
+                                --searched case expression: Evaluates a series of independent Boolean expressions.
+
+                                appraisal :=
+                                CASE
+                                    WHEN attends_this_school(id) = FALSE
+                                        THEN 'Student not enrolled'
+                                    WHEN grade = 'F' OR attendance < min_days
+                                        THEN 'Poor (poor performance or bad attendance)'
+                                    WHEN grade = 'A' THEN 'Excellent'
+                                    WHEN grade = 'B' THEN 'Very Good'
+                                    WHEN grade = 'C' THEN 'Good'
+                                    WHEN grade = 'D' THEN 'Fair'
+                                    ELSE 'No such grade'
+                                END;
+                            </pre>
+                        </li>
+                        <li> <strong>Write nested blocks and qualify variables with labels</strong>
+                            <pre>
+                                SET SERVEROUTPUT ON SIZE 1000000;
+                                <<parent>>
+                                DECLARE
+                                    n_emp_id EMPLOYEES.EMPLOYEE_ID%TYPE := &emp_id1;
+                                BEGIN
+                                    <<child>>
+                                    DECLARE
+                                        n_emp_id employees.employee_id%TYPE := &emp_id2;
+                                        v_name   employees.first_name%TYPE;
+                                    BEGIN
+                                        SELECT first_name INTO v_name FROM employees WHERE employee_id = parent.n_emp_id;
+
+                                        DBMS_OUTPUT.PUT_LINE('First name of employee ' || parent.n_emp_id || ' is ' || child.v_name);
+
+                                    EXCEPTION
+                                        WHEN no_data_found THEN
+                                            DBMS_OUTPUT.PUT_LINE('Employee ' || parent.n_emp_id || ' not found');
+                                    END;
+                                END;
+                                /
+                            </pre>
+                        </li>
+                        <li><strong>Identify lexical units in a PL/SQL block</strong>
+                            <p>In PL/SQL, lexical units are the fundamental building blocks of the language. They include identifiers, literals, delimiters, comments, and reserved words. </p>
+                        </li>
+                        <li> <strong>Use built-in SQL functions in PL/SQL and sequences in PL/SQL expressions</strong>
+
+                        </li>
+                        <li><strong> Write readable code with appropriate indentation</strong>
+
+                        </li>
+                        <li><strong>Describe when implicit conversions take place and when explicit conversions have to be dealt with</strong>
+                            Implicit Conversions are  performed by the database when different data types are used in the same expression or assignment. Example, a string might be implicitly converted to a number in a mathematical operation<br/>
+                            They happen in Assignment, Arithmetic operations involving different numeric or string types, Comparisons, Functions <br/>
+                            Explicit Conversions involve using specific functions to convert data types. In PL/SQL, these functions include TO_CHAR, TO_NUMBER, TO_DATE, TO_TIMESTAMP, and more <br/>
+                            They are used in Clarity (to make the data type conversions clear in the code, improving readability), Predictablity (ensure consistent behavior regardless of the environment or settings (like NLS parameters)), Performance, Avoiding errors
+                        </li>
+                        <li> <strong>PL/SQL Data Types</strong>
+                            The PL/SQL scalar data types are: The SQL data types, BOOLEAN, PLS_INTEGER, BINARY_INTEGER, REF CURSOR, User-defined subtypes
+                        </li>
+                        <li>
+
+                        </li>
+                    </ol>
+                    
+                    <p><strong>Writing SQL in PL/SQL</strong>
+                        <b>Create PL/SQL executable blocks using DML and transaction control statements</b>
+                        <pre>
+                           DECLARE
+                                v_employee_id NUMBER := 101;
+                                v_salary NUMBER := 50000;
+                                v_bonus NUMBER := 5000;
+                            BEGIN
+                                -- DML statement: Update employee salary
+                                UPDATE employees
+                                SET salary = v_salary + v_bonus
+                                WHERE employee_id = v_employee_id;
+
+                                -- Transaction control statement: Commit the changes
+                                COMMIT;
+
+                                -- DML statement: Insert a new record
+                                INSERT INTO employees (employee_id, first_name, last_name, salary)
+                                VALUES (102, 'John', 'Doe', 60000);
+
+                                -- Transaction control statement: Rollback if any error occurs
+                                IF SQL%ROWCOUNT = 0 THEN
+                                    ROLLBACK;
+                                    DBMS_OUTPUT.PUT_LINE('Insert failed, transaction rolled back.');
+                                ELSE
+                                    COMMIT;
+                                    DBMS_OUTPUT.PUT_LINE('Insert successful, transaction committed.');
+                                END IF;
+
+                            EXCEPTION
+                                WHEN OTHERS THEN
+                                    ROLLBACK;
+                                    DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+                            END;
+                            /
+                        </pre>
+                        <b>Make use of the INTO clause to hold the values returned by a SQL statement</b> <br/>
+                        SELECT column1, column2 INTO variable1, variable2 FROM table WHERE condition;
+                    </p>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong> Writing Control Structures</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <strong> Identify the uses and types of control structures (IF, CASE statements and expressions), loop statements and EXIT and CONTINUE statements inside loops</strong>
+                    <ol>
+                        <li>
+                            <pre>
+                                IF condition1 THEN
+                                    -- statements
+                                ELSIF condition2 THEN
+                                    -- statements
+                                ELSE
+                                    -- statements
+                                END IF;
+
+                            </pre>
+                            Simple case: <br/>
+                            <pre>
+                                CASE expression
+                                    WHEN value1 THEN
+                                        -- statements
+                                    WHEN value2 THEN
+                                        -- statements
+                                    ELSE
+                                        -- statements
+                                END CASE;
+                            </pre>
+                            <pre> searched case:<br/>
+                                variable := CASE
+                                    WHEN condition1 THEN value1
+                                    WHEN condition2 THEN value2
+                                    ELSE valueN
+                                END;
+                            </pre>
+                        </li>
+                        <li>Basic Loop <br/>
+                            <pre>
+                                DECLARE
+                                    v_count NUMBER := 0;
+                                BEGIN
+                                    LOOP
+                                        v_count := v_count + 1;
+                                        DBMS_OUTPUT.PUT_LINE('Count: ' || v_count);
+                                        EXIT WHEN v_count = 5;
+                                    END LOOP;
+                                END;
+
+                            </pre>
+                        </li>
+                        <li>
+                                While Loop:<br/>
+                            <pre>
+                                DECLARE
+                                    v_count NUMBER := 0;
+                                BEGIN
+                                    WHILE v_count < 5 LOOP
+                                        v_count := v_count + 1;
+                                        DBMS_OUTPUT.PUT_LINE('Count: ' || v_count);
+                                    END LOOP;
+                                END;
+                            </pre>
+                        </li>
+                        <li>
+                                For Loop <br/>
+                            <pre>
+                                BEGIN
+                                    FOR i IN 1..5 LOOP
+                                        DBMS_OUTPUT.PUT_LINE('Iteration: ' || i);
+                                    END LOOP;
+                                END;
+
+                            </pre>
+                        </li>
+                        <li>
+                                Cursor For Loop <br/>
+                            <pre>
+                                BEGIN
+                                    FOR rec IN (SELECT employee_id, last_name FROM employees WHERE ROWNUM <= 5) LOOP
+                                        DBMS_OUTPUT.PUT_LINE('Employee ID: ' || rec.employee_id || ', Name: ' || rec.last_name);
+                                    END LOOP;
+                                END;
+
+                            </pre>
+                        </li>
+                        <li> Exit and Continue in Loops <br/>
+                            <pre>
+                            DECLARE
+                                v_count NUMBER := 1;
+                            BEGIN
+                                WHILE v_count <= 5 LOOP
+                                    IF v_count = 3 THEN
+                                    v_count := v_count + 1;
+                                    CONTINUE; -- Skip the rest of this iteration
+                                    ELSIF v_count = 5 THEN
+                                    EXIT; -- Exit the loop
+                                    END IF;
+                                    DBMS_OUTPUT.PUT_LINE('Count: ' || v_count);
+                                    v_count := v_count + 1;
+                                END LOOP;
+                            END;
+                            </pre>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>Working with Composite Data Types</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p> The PL/SQL composite data types are collections(associative array, VARRAY (variable-size array), and nested table which alwasys have the same datatype "elements" accessed by index) and records (which have "fields" which can be of different datatype accessed by name).<br/>
+                        To create a collection variable, you either define a collection type and then create a variable of that type or use %TYPE.<br/>
+                        To create a record variable, you either define a RECORD type and then create a variable of that type or use %ROWTYPE or %TYPE.</p>
+                    <ol>
+                        <li> <strong>associative array (a set of key-value pairs)</strong>
+                            <pre>
+                                DECLARE
+                                    TYPE sum_multiples IS TABLE OF PLS_INTEGER INDEX BY PLS_INTEGER;
+                                    n PLS_INTEGER := 5; -- number of multiples to sum for display
+                                    sn PLS_INTEGER := 10; -- number of multiples to sum
+                                    m PLS_INTEGER := 3; -- multiple
+
+                                    TYPE population IS TABLE OF NUMBER -- Associative array type
+                                    INDEX BY VARCHAR2(64); -- Indexed by string
+                                    city_population population; -- Associative array variable
+                                    i VARCHAR2(64); -- Scalar variable
+
+                                    TYPE My_AA IS TABLE OF VARCHAR2(20) INDEX BY PLS_INTEGER;
+                                    v CONSTANT My_AA := My_AA(-10=>'-ten', 0=>'zero', 1=>'one', 2=>'two', 3 =>
+                                    'three', 4 => 'four', 9 => 'nine'); -- Associative Array Constant
+
+                                    FUNCTION get_sum_multiples (multiple IN PLS_INTEGER, num IN PLS_INTEGER) 
+                                    RETURN sum_multiples
+                                    IS
+                                        s sum_multiples;
+                                        Idx PLS_INTEGER := v.FIRST();
+                                    BEGIN
+                                        FOR i IN 1..num LOOP
+                                            s(i) := multiple * ((i * (i + 1)) / 2); -- sum of multiples
+                                        END LOOP;
+                                        WHILE Idx IS NOT NULL LOOP
+                                            DBMS_OUTPUT.PUT_LINE(TO_CHAR(Idx, '999')||LPAD(v(Idx), 7));
+                                            Idx := v.NEXT(Idx);
+                                        END LOOP;
+                                        RETURN s;
+                                    END get_sum_multiples;
+                                BEGIN
+                                    DBMS_OUTPUT.PUT_LINE ( 'Sum of the first ' || TO_CHAR(n) || ' multiples of ' ||
+                                    TO_CHAR(m) || ' is ' || TO_CHAR(get_sum_multiples (m, sn)(n)));
+
+                                    -- Add elements (key-value pairs) to associative array:
+                                    city_population('Smallville') := 2000;
+                                    city_population('Midland') := 750000;
+                                    city_population('Megalopolis') := 1000000;
+                                    -- Change value associated with key 'Smallville':
+                                    city_population('Smallville') := 2001;
+                                    -- Print associative array:
+                                    i := city_population.FIRST; -- Get first element of array
+                                    WHILE i IS NOT NULL LOOP
+                                    DBMS_Output.PUT_LINE
+                                    ('Population of ' || i || ' is ' || city_population(i));
+                                    i := city_population.NEXT(i); -- Get next element of array
+                                    END LOOP;
+                                END;
+                                /
+
+                            </pre>
+                            <p>An associative array is appropriate for: A relatively small lookup table, which can be constructed in memory each time you invoke the subprogram or initialize the package that declares it, Passing collections to and from the database server</p>
+                        </li>
+                        <li><strong>varray (variable-size array)</strong> <br/>
+                            <pre>
+                                DECLARE
+                                    TYPE Foursome IS VARRAY(4) OF VARCHAR2(15); -- VARRAY type
+                                    team Foursome := Foursome('John', 'Mary', 'Alberto', 'Juanita');
+                                    PROCEDURE print_team (heading VARCHAR2) IS
+                                    BEGIN
+                                        DBMS_OUTPUT.PUT_LINE(heading);
+                                        FOR i IN 1..4 LOOP
+                                            DBMS_OUTPUT.PUT_LINE(i || '.' || team(i));
+                                        END LOOP;
+                                        DBMS_OUTPUT.PUT_LINE('---');
+                                    END;
+                                BEGIN
+                                    print_team('2001 Team:');
+                                    team(3) := 'Pierre'; -- Change values of two elements
+                                    team(4) := 'Yvonne';
+                                    print_team('2005 Team:');
+                                    -- Invoke constructor to assign new values to varray variable:
+                                    team := Foursome('Arun', 'Amitha', 'Allan', 'Mae');
+                                    print_team('2009 Team:');
+                                END;
+                                /
+                            </pre>
+                            <p>A varray is appropriate when: You know the maximum number of elements, You usually access the elements sequentially.</p>
+                        </li>
+                        <li> <strong>Nested Table (a column type that stores an unspecified number of rows in no particular order)</strong><br/>
+                            <pre>
+                                DECLARE
+                                    TYPE Roster IS TABLE OF VARCHAR2(15); -- nested table type
+                                    -- nested table variable initialized with constructor:
+                                    names Roster := Roster('D Caruso', 'J Hamil', 'D Piro', 'R Singh');
+                                    PROCEDURE print_names (heading VARCHAR2) IS
+                                    BEGIN
+                                        DBMS_OUTPUT.PUT_LINE(heading);
+                                        FOR i IN names.FIRST .. names.LAST LOOP -- For first to last element
+                                            DBMS_OUTPUT.PUT_LINE(names(i));
+                                        END LOOP;
+                                        DBMS_OUTPUT.PUT_LINE('---');
+                                    END;
+                                BEGIN
+                                    print_names('Initial Values:');
+                                    names(3) := 'P Perez'; -- Change value of one element
+                                    print_names('Current Values:');
+                                    names := Roster('A Jansen', 'B Gupta'); -- Change entire table
+                                    print_names('Current Values:');
+                                END;
+                                /
+                            </pre>
+                            <pre>
+                                CREATE OR REPLACE TYPE nt_type IS TABLE OF NUMBER;
+                                /
+                                CREATE OR REPLACE PROCEDURE print_nt (nt nt_type) AUTHID DEFINER IS
+                                    i NUMBER;
+                                BEGIN
+                                    i := nt.FIRST;
+                                    IF i IS NULL THEN
+                                        DBMS_OUTPUT.PUT_LINE('nt is empty');
+                                    ELSE
+                                        WHILE i IS NOT NULL LOOP
+                                            DBMS_OUTPUT.PUT('nt.(' || i || ') = ');
+                                            DBMS_OUTPUT.PUT_LINE(NVL(TO_CHAR(nt(i)), 'NULL'));
+                                            i := nt.NEXT(i);
+                                        END LOOP;
+                                    END IF;
+                                    DBMS_OUTPUT.PUT_LINE('---');
+                                END print_nt;
+                                /
+                                DECLARE
+                                    nt nt_type := nt_type(); -- nested table variable initialized to empty
+                                BEGIN
+                                    print_nt(nt);
+                                    nt := nt_type(90, 9, 29, 58);
+                                    print_nt(nt);
+                                END;
+                                /
+                            </pre>
+                            <p>A nested table is appropriate when: The number of elements is not set, Index values are not consecutive, You must delete or update some elements, but not all elements simultaneously, You would create a separate lookup table, with multiple entries for each row of the main table, and access it through join queries.</p>
+                            <p>You can assign a collection to a collection variable only if they have the same data type. Having the same element type is not enough</p>
+                            <p>Multiset Conditions: Multiset conditions test various aspects of nested tables.<br/>
+                                MULTISET UNION: Combines elements from two nested tables.<br/>
+                                MULTISET INTERSECT: Returns elements common to both nested tables.<br/>
+                                MULTISET EXCEPT: Returns elements in the first nested table but not the second.<br/>
+                                nested_table1 MULTISET UNION nested_table2 nested_table1 MULTISET INTERSECT nested_table2 nested_table1 MULTISET EXCEPT nested_table2           
+                            </p>
+                            <p><strong>Collection Methods: </strong> Delete, Trim, Extend, Exists, First, Last, Count, Limit, Prior, Next
+                                <pre>
+                                    DECLARE
+                                        TYPE nt_type IS TABLE OF NUMBER;
+                                        nt nt_type := nt_type(10, 20, 30, 40, 50);
+                                    BEGIN
+                                        -- Extend: add an element
+                                        nt.EXTEND;
+                                        nt(6) := 60;
+
+                                        -- Trim: remove last element
+                                        nt.TRIM;
+
+                                        -- Delete: remove element at index 2
+                                        nt.DELETE(2);
+
+                                        -- EXISTS: check if index 3 exists
+                                        IF nt.EXISTS(3) THEN
+                                            DBMS_OUTPUT.PUT_LINE('Element 3 exists.');
+                                        END IF;
+
+                                        -- FIRST and LAST: get first and last indices
+                                        DBMS_OUTPUT.PUT_LINE('First index: ' || nt.FIRST);
+                                        DBMS_OUTPUT.PUT_LINE('Last index: ' || nt.LAST);
+
+                                        -- COUNT: get number of elements
+                                        DBMS_OUTPUT.PUT_LINE('Count: ' || nt.COUNT);
+
+                                        -- PRIOR and NEXT: get prior and next indices
+                                        DBMS_OUTPUT.PUT_LINE('Prior to 4: ' || nt.PRIOR(4));
+                                        DBMS_OUTPUT.PUT_LINE('Next after 1: ' || nt.NEXT(1));
+                                    END;
+                                    /
+                                </pre>
+                            </p>
+                        </li>
+                        <li> <strong>record variable</strong> <br/>
+                            a record variable can be created by Defining a RECORD type and then declare a variable of that type, Use %ROWTYPE to declare a record variable that represents either a full or partial row of a database table or view, Use %TYPE to declare a record variable of the same type as a previously declared record variable.
+                            <pre>
+                                DECLARE
+                                    TYPE My_Rec IS RECORD (a NUMBER, b NUMBER);
+                                    r CONSTANT My_Rec := My_Rec(0,1);
+                                BEGIN
+                                    DBMS_OUTPUT.PUT_LINE('r.a = ' || r.a);
+                                    DBMS_OUTPUT.PUT_LINE('r.b = ' || r.b);
+                                END;
+                                /
+                                A RECORD type defined in a PL/SQL block is a local type.<br/>
+                                A RECORD type defined in a package specification is a public item.<br/>
+                            </pre>
+                            <pre>
+                                DECLARE
+                                    TYPE name_rec IS RECORD (
+                                        first employees.first_name%TYPE,
+                                        last employees.last_name%TYPE
+                                    );
+                                    TYPE contact IS RECORD (
+                                        name name_rec, -- nested record
+                                        phone employees.phone_number%TYPE
+                                    );
+                                    friend contact;
+                                    TYPE full_name IS VARRAY(2) OF VARCHAR2(20);
+                                    TYPE contact2 IS RECORD (
+                                        name full_name := full_name('John', 'Smith'), -- varray field
+                                        phone employees.phone_number%TYPE
+                                    );
+                                    friend2 contact2;
+                                BEGIN
+                                    friend.name.first := 'John';
+                                    friend.name.last := 'Smith';
+                                    friend.phone := '1-650-555-1234';
+                                    DBMS_OUTPUT.PUT_LINE (
+                                    friend.name.first || ' ' ||
+                                    friend.name.last || ', ' ||
+                                    friend.phone
+                                    );
+
+                                    friend2.phone := '1-650-555-1234';
+                                    DBMS_OUTPUT.PUT_LINE (
+                                        friend2.name(1) || ' ' ||
+                                        friend2.name(2) || ', ' ||
+                                        friend2.phone
+                                    );
+                                END;
+                                /
+                            </pre>
+                            <p>variable_name table_or_view_name%ROWTYPE;</p>
+                            <p>variable_name cursor%ROWTYPE;</p>
+                            <p>One record variable can be assigned to another record variable only if The two variables have the same RECORD type, or The target variable is declared with a RECORD type the source variable is declared with %ROWTYPE, their fields match in number and order, and corresponding fields have the same data type.</p>
+                            <p>SELECT select_list INTO record_variable_name FROM table_or_view_name;</p>
+                            <p>FETCH cursor INTO record_variable_name;</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>PL/SQL Static SQL</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p> Static SQL is a PL/SQL feature that allows SQL syntax directly in a PL/SQL statement.</p>
+                    <ol>
+                        <li> <strong>Example: PL/SQL with static SQL and CURRVAL and NEXTVAL Pseudocolumns</strong>
+                            <pre>
+                                DROP TABLE employees_temp;
+                                CREATE TABLE employees_temp AS SELECT employee_id, first_name, last_name
+                                    FROM employees;
+                                    DROP TABLE employees_temp2;
+                                CREATE TABLE employees_temp2 AS SELECT employee_id, first_name, last_name
+                                FROM employees;
+                                DECLARE
+                                    seq_value NUMBER;
+                                BEGIN
+                                    -- Generate initial sequence number
+                                    seq_value := employees_seq.NEXTVAL;
+                                    -- Print initial sequence number:
+                                    DBMS_OUTPUT.PUT_LINE ('Initial sequence value: ' || TO_CHAR(seq_value));
+                                    -- Use NEXTVAL to create unique number when inserting data:
+                                    INSERT INTO employees_temp (employee_id, first_name, last_name)
+                                    VALUES (employees_seq.NEXTVAL, 'Lynette', 'Smith');
+                                    -- Use CURRVAL to store same value somewhere else:
+                                    INSERT INTO employees_temp2 VALUES (employees_seq.CURRVAL, 'Morgan', 'Smith');
+                                    
+                                    -- Use CURRVAL to specify record to delete:
+                                    seq_value := employees_seq.CURRVAL;
+                                    DELETE FROM employees_temp2 WHERE employee_id = seq_value;
+                                    -- Update employee_id with NEXTVAL for specified record:
+                                    UPDATE employees_temp SET employee_id = employees_seq.NEXTVAL 
+                                    WHERE first_name = 'Lynette' AND last_name = 'Smith';
+                                    -- Display final value of CURRVAL:
+                                    seq_value := employees_seq.CURRVAL;
+                                    DBMS_OUTPUT.PUT_LINE ( 'Ending sequence value: ' || TO_CHAR(seq_value));
+                                END;
+                                /
+                            </pre>
+                        </li>
+                        <li><strong>Cursors</strong>
+                            <p>A cursor is a pointer to a private SQL area that stores information about processing a specific SELECT or DML statement.
+                                A cursor that is constructed and managed by PL/SQL is an implicit cursor. A cursor that you construct and manage is an explicit cursor.
+                            </p>
+                            <p>sys_refcursor vs ref cursor<br/>
+                                In Oracle PL/SQL, SYS_REFCURSOR and REF CURSOR are both cursor variable types that allow you to return result sets from stored procedures or functions, but there are subtle distinctions between them:<br/>
+                                REF CURSOR<br/>
+                                Strong: When you specify a return type (e.g., TYPE emp_cur IS REF CURSOR RETURN employees%ROWTYPE;), the cursor variable is strongly typed. This provides compile-time checking.<br/>
+                                Weak: When you declare a generic ref cursor (TYPE my_cursor IS REF CURSOR;), it is weakly typed and can be used with any query.<br/>
+                                SYS_REFCURSOR <br/>
+                                Predefined Weak Ref Cursor: SYS_REFCURSOR is a weakly typed ref cursor predefined in the Oracle STANDARD package. You can use it directly without declaring a type <br/>
+                                Convenience: It saves you from declaring your own ref cursor type and is commonly used for returning result sets from procedures and functions.<br/>
+                                Functional Equivalence<br/>
+                                Functionality: There is no functional difference between a weakly typed ref cursor and SYS_REFCURSOR. Both can be used to return any result set<br/>
+                                Usage: SYS_REFCURSOR is recommended for simplicity and portability, especially in modern code.<br/>
+                                <pre>
+                                    -- Using SYS_REFCURSOR
+                                    CREATE OR REPLACE PROCEDURE get_emps(c OUT SYS_REFCURSOR) IS
+                                    BEGIN
+                                        OPEN c FOR SELECT * FROM employees;
+                                    END;
+                                    /
+
+                                    -- Using user-defined REF CURSOR
+                                    CREATE OR REPLACE PACKAGE my_pkg AS
+                                        TYPE emp_cur IS REF CURSOR RETURN employees%ROWTYPE;
+                                        PROCEDURE get_emps(c OUT emp_cur);
+                                    END;
+                                    /
+
+                                </pre>
+                            </p>
+                        </li>
+                        <li><strong>Transaction Processing and Control</strong>
+                            ...
+                            <p>Autonomous Transactions: </p>
+                            <p>Autonomous Triggers: </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>PL/SQL Dynamic SQL</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p> Dynamic SQL is a programming methodology for generating and running SQL statements at run time.<br/>
+                        PL/SQL provides two ways to write dynamic SQL: Native dynamic SQL, a PL/SQL language (that is, native) feature for building and running dynamic SQL statements<br/>
+                        DBMS_SQL package, an API for building, running, and describing dynamic SQL statements <br/>
+                        For a SELECT statement that returns multiple rows, native dynamic SQL provides:  Use of the EXECUTE IMMEDIATE statement with the BULK COLLECT INTO clause. Use the OPEN FOR, FETCH, and CLOSE statements.
+                    </p>
+                    <ol>
+                        <li> <strong></strong>
+                            <pre>
+                                -- Stored procedure to be called dynamically
+                                CREATE OR REPLACE PROCEDURE create_dept(
+                                    deptid IN OUT NUMBER,
+                                    dname IN VARCHAR2,
+                                    mgrid IN NUMBER,
+                                    locid IN NUMBER
+                                ) AUTHID DEFINER AS
+                                BEGIN
+                                    deptid := departments_seq.NEXTVAL;
+                                    INSERT INTO departments (department_id, department_name, manager_id, location_id)
+                                    VALUES (deptid, dname, mgrid, locid);
+                                END;
+                                /
+
+                                -- Dynamic PL/SQL block to invoke the procedure
+                                DECLARE
+                                    plsql_block VARCHAR2(500);
+                                    new_deptid NUMBER(4);
+                                    new_dname VARCHAR2(30) := 'Advertising';
+                                    new_mgrid NUMBER(6) := 200;
+                                    new_locid NUMBER(4) := 1700;
+                                BEGIN
+                                    plsql_block := 'BEGIN create_dept(:a, :b, :c, :d); END;';
+                                    EXECUTE IMMEDIATE plsql_block
+                                    USING IN OUT new_deptid, new_dname, new_mgrid, new_locid;
+                                END;
+                                /
+
+                            </pre>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>SQL Injection</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p> SQL injection maliciously exploits applications that use client-supplied data in SQL statements, thereby gaining unauthorized access to a database to view or manipulate restricted data.<br/>
+                        <strong>SQL Injection Techniques</strong> Statement Modification(deliberately altering a dynamic SQL statement), Statement Injection(appends one or more SQL statements), Data Type Conversion (NLS session parameters to modify or inject SQL statements)
+                        <strong>Guards Against SQL Injection: </strong> Bind Variables, Validation Checks(validate user input), Explicit Format Models(Using explicit locale-independent format models to construct SQL)
+                    </p>
+                </div>
+            </div>
+            
+
+
+            <div class="qa-section">
+                <div class="question">
+                    <strong>PL/SQL Subprograms</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p> A PL/SQL subprogram is a named PL/SQL block that can be invoked repeatedly. A subprogram is either a procedure(to perform an action) or a function (to compute and return a value).<br/>
+                        Subprograms support the development and maintenance of reliable, modular, easily maintainable, reusable code, packageabiliy, and better performance.
+                        A subprogram created inside a PL/SQL block is a nested subprogram.<br/>
+                        A subprogram created inside a package is a package subprogram. <br/>
+                        A subprogram created at schema level is a standalone subprogram. <br/>
+                        <strong></strong> 
+                        <strong> </strong> 
+                        <pre>
+                            You can declare a formal parameter of a constrained subtype, like this:
+                            DECLARE
+                                SUBTYPE n1 IS NUMBER(1);
+                                SUBTYPE v1 IS VARCHAR2(1);
+                                PROCEDURE p (n n1, v v1) IS 
+                                ...
+                            But you cannot include a constraint in a formal parameter declaration, like this:
+                            DECLARE
+                                PROCEDURE p (n NUMBER(1), v VARCHAR2(1)) IS
+                        </pre>
+                        Subprogram Parameter Modes: IN (Default), OUT, IN OUT <br/>
+                        Positional, Named, and Mixed Notation for Actual Parameters: When invoking a subprogram, you can specify the actual parameters using either positional, named, or mixed notation.<br/>
+                        <pre>
+                            raise_salary(emp_num, bonus); -- positional notation
+                            raise_salary(amount => bonus, emp_id => emp_num); -- named notation
+                            raise_salary(emp_id => emp_num, amount => bonus); -- named notation
+                            raise_salary(emp_num, amount => bonus); -- mixed notation
+
+                            SELECT compute_bonus(120, 50) FROM DUAL; -- positional
+                            SELECT compute_bonus(bonus => 50, emp_id => 120) FROM DUAL; -- named
+                            SELECT compute_bonus(120, bonus => 50) FROM DUAL; -- mixed
+                        </pre>
+                        Recursive Subprograms
+                        <pre>
+                            CREATE OR REPLACE FUNCTION factorial ( n POSITIVE ) RETURN POSITIVE AUTHID DEFINER
+                            IS
+                            BEGIN
+                                IF n = 1 THEN -- terminating condition
+                                    RETURN n;
+                                ELSE
+                                    RETURN n * factorial(n-1); -- recursive invocation
+                                END IF;
+                            END;
+                            /
+                            BEGIN
+                                FOR i IN 1..5 LOOP
+                                    DBMS_OUTPUT.PUT_LINE(i || '! = ' || factorial(i));
+                                END LOOP;
+                            END;
+                            /
+                        </pre>
+                        <pre>
+                            CREATE OR REPLACE FUNCTION fibonacci ( n PLS_INTEGER ) RETURN PLS_INTEGER AUTHID DEFINER
+                            IS
+                                fib_1 PLS_INTEGER := 0;
+                                fib_2 PLS_INTEGER := 1;
+                            BEGIN
+                                IF n = 1 THEN -- terminating condition
+                                    RETURN fib_1;
+                                ELSIF n = 2 THEN
+                                    RETURN fib_2; -- terminating condition
+                                ELSE
+                                    RETURN fibonacci(n-2) + fibonacci(n-1); -- recursive invocations
+                                END IF;
+                            END;
+                            /
+                            BEGIN
+                                FOR i IN 1..10 LOOP
+                                    DBMS_OUTPUT.PUT(fibonacci(i));
+                                    IF i < 10 THEN
+                                        DBMS_OUTPUT.PUT(', ');
+                                    END IF;
+                                END LOOP;
+                                DBMS_OUTPUT.PUT_LINE(' ...');
+                            END;
+                            /
+                        </pre>
+                    </p>
+                    <p>PL/SQL Function Result Cache ... </p>
+                    <p>Invoker's Rights and Definer's Rights (AUTHID Property)... <br/>
+                        For stored PL/SQL units that you create or alter with the following statements,  <br/>
+                        you can use the optional AUTHID clause to specify either DEFINER (the default, for backward compatibility) or CURRENT_USER (the preferred usage):
+
+                    </p>
+                </div>
+            </div>
+            <div class="qa-section">
+                <div class="question">
+                    <strong>PL/SQL Triggers</strong><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    A trigger is like a stored procedure that Oracle Database invokes automatically whenever a specified event occurs.
+                </div>
+            </div>
+    </body>
+    <script>
+        document.querySelectorAll('.qa-section').forEach(section => {
+            section.addEventListener('click', () => {
+                section.classList.toggle('active');
+            });
+        });
+    </script>
+</html>

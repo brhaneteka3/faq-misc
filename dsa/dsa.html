@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Data Structure and Algorithm FQA</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a3c58;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .qa-section {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 5px solid #0288d1;
+            background: #fafafa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .qa-section:hover {
+            background: #f0f8ff;
+        }
+
+        .question {
+            font-weight: 600;
+            color: #1a3c58;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question::after {
+            content: '▼';
+            font-size: 0.8em;
+            color: rotate(0deg);
+        }
+
+        .qa-section.active .question::after {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            display: none;
+            margin-top: 12px;
+            color: #444;
+            padding-left: 10px;
+        }
+
+        .qa-section.active .answer {
+            display: block;
+        }
+
+        .answer p {
+            margin-bottom: 10px;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .answer pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .answer code {
+            font-family: 'Consolas', monospace;
+            background: #e0e7ff;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .qa-section {
+                padding: 10px;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .answer pre {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Data Structure and Algorithm FQA</h1>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Brute Force Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>.</p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong>.</p>
+                    <pre></pre>
+                    <p><strong>Example 2: </strong></p>
+                    <pre> </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Recursive Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre> </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Divide and Conquer Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Dynamic Programming Algorithms</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Greedy Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Backtracking Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Randomized Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Sorting Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Searching Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+
+            <div class="qa-section">
+                <div class="question">
+                    <span>Hashing Algorithm</span><span class="toggle-icon"></span>
+                </div>
+                <div class="answer">
+                    <p>. </p>
+                    <p>.</p>
+                    <p><strong>Example 1: </strong> </p>
+                    <pre> </pre>
+                    <p><strong>Example 2: </strong>:</p>
+                    <pre>  </pre>
+                </div>
+            </div>
+    </body>
+    <script>
+        document.querySelectorAll('.qa-section').forEach(section => {
+            section.addEventListener('click', () => {
+                section.classList.toggle('active');
+            });
+        });
+    </script>
+</html>
